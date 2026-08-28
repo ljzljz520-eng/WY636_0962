@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 2354,
+    "production_files": 28,
+    "production_packages": 11,
+    "test_files": 12,
+    "production_functions": 161,
+    "decision_points": 343
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": [
+      "Record",
+      "AuditEvent",
+      "Workflow",
+      "Attachment"
+    ],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {
+      "steps": [
+        "register application and roster",
+        "validate fields and cage capacity",
+        "review and confirm current roster",
+        "archive completed application"
+      ],
+      "test": "TestWorkflowCreateReviewArchive"
+    },
+    {
+      "steps": [
+        "search by applicant or facility",
+        "select application detail",
+        "update roster with a reason",
+        "publish the latest status"
+      ],
+      "test": "TestWorkflowSearchUpdatePublish"
+    },
+    {
+      "steps": [
+        "import application rows",
+        "validate duplicates and capacity",
+        "persist valid rows and audit events",
+        "report deterministic status summary"
+      ],
+      "test": "TestWorkflowImportReport"
+    }
+  ]
+}
